@@ -1,0 +1,134 @@
+\input texinfo    @c -*- texinfo -*-
+@c %**start of header
+@setfilename fj.info
+@settitle fj User Guide
+@documentencoding UTF-8
+@documentlanguage en
+@syncodeindex pg cp
+@paragraphindent none
+@c %**end of header
+
+@copying
+Copyright © 2026 Charles Y@. Choi
+@end copying
+
+@dircategory Emacs misc features
+@direntry
+* fj: (fj).             fj - A GitHub issue browser for Emacs.
+@end direntry
+
+@finalout
+@titlepage
+@title fj User Guide
+@subtitle for version 0.1.0-rc.1
+@author Charles Y@. Choi (@email{kickingvegas@@gmail.com})
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top
+@top fj User Guide
+
+Version: 0.1.0-rc.1
+
+Copyright © 2026 @w{Charles Y. Choi}
+
+@strong{fj} is TBD@.
+
+
+If you enjoy using @strong{fj}@comma{} please buy me a coffee to help support its development and maintenance.
+
+@image{images/default-yellow,,,,png}
+
+@uref{https://www.buymeacoffee.com/kickingvegas}
+
+@end ifnottex
+
+@menu
+* Features::
+* Install::
+* Commands::
+* Feedback & Discussion::
+* Sponsorship::
+* About fj::
+* Acknowledgments::
+* Main Index::
+* Variable Index::
+@end menu
+
+@node Features
+@chapter Features
+
+@cindex Features
+
+TBD
+
+@node Install
+@chapter Install
+
+@cindex Install
+
+TBD
+
+@node Commands
+@chapter Commands
+
+@cindex Commands
+
+TBD
+
+@node Feedback & Discussion
+@chapter Feedback & Discussion
+
+@cindex Feedback
+Please report any feedback about @strong{fj} to the @uref{https://github.com/kickingvegas/now-playing/issues, issue tracker on GitHub}.
+
+@cindex Discussion
+To participate in general discussion about using @strong{fj}@comma{} please join the @uref{https://github.com/kickingvegas/now-playing/discussions, discussion group}.
+
+@node Sponsorship
+@chapter Sponsorship
+
+@cindex Sponsorship
+
+If you enjoy using @strong{fj}@comma{} please buy me a coffee to help support its development and maintenance.
+
+@image{images/default-yellow,,,,png}
+
+@uref{https://www.buymeacoffee.com/kickingvegas}
+
+@node About fj
+@chapter About fj
+
+@cindex About fj
+
+@uref{https://github.com/kickingvegas/now-playing, fj} was conceived and crafted by Charles Choi in San Francisco@comma{} California.
+
+Thank you for using @strong{fj}.
+
+Always choose love.
+
+@node Acknowledgments
+@chapter Acknowledgments
+
+@cindex Acknowledgments
+
+@node Main Index
+@chapter Main Index
+
+Index for this user guide.
+
+@printindex cp
+
+@node Variable Index
+@chapter Variable Index
+
+Variables@comma{} functions@comma{} commands@comma{} and menus referenced by this user guide.
+
+@printindex vr
+
+@bye
