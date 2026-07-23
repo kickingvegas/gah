@@ -1,28 +1,28 @@
 #+startup: overview nologdone
 #+startup: showeverything
-#+TITLE: fj User Guide
+#+TITLE: gah User Guide
 #+SUBTITLE: for version {{{version}}}
 #+AUTHOR: Charles Y. Choi
 #+EMAIL: kickingvegas@gmail.com
 #+OPTIONS: ':t toc:t author:t email:t H:4 f:t
 #+LANGUAGE: en
-#+MACRO: version 0.1.0
+#+MACRO: version 0.1.1-rc.1
 #+MACRO: kbd (eval (org-texinfo-kbd-macro $1))
-#+TEXINFO_FILENAME: fj.info
+#+TEXINFO_FILENAME: gah.info
 #+TEXINFO_CLASS: casual
 #+TEXINFO_HEADER: @syncodeindex pg cp
 #+TEXINFO_HEADER: @paragraphindent none
 #+TEXINFO_TITLEPAGE: t
 #+TEXINFO_DIR_CATEGORY: Emacs misc features
-#+TEXINFO_DIR_NAME: fj
-#+TEXINFO_DIR_DESC: fj - A GitHub issue browser for Emacs.
-#+TEXINFO_PRINTED_TITLE: fj User Guide
+#+TEXINFO_DIR_NAME: gah
+#+TEXINFO_DIR_DESC: gah - A GitHub issue browser for Emacs.
+#+TEXINFO_PRINTED_TITLE: gah User Guide
 
 Version: {{{version}}}
 
 #+TEXINFO: Copyright © 2026 @w{Charles Y. Choi}
 
-*fj* is TBD.
+*gah* is TBD.
 
 
 #+INCLUDE: "./sponsorship.org"
@@ -58,10 +58,10 @@ TBD
 
 * Feedback & Discussion
 #+CINDEX: Feedback
-Please report any feedback about *fj* to the [[https://github.com/kickingvegas/now-playing/issues][issue tracker on GitHub]].
+Please report any feedback about *gah* to the [[https://github.com/kickingvegas/now-playing/issues][issue tracker on GitHub]].
 
 #+CINDEX: Discussion
-To participate in general discussion about using *fj*, please join the [[https://github.com/kickingvegas/now-playing/discussions][discussion group]].
+To participate in general discussion about using *gah*, please join the [[https://github.com/kickingvegas/now-playing/discussions][discussion group]].
 
 * Sponsorship
 #+CINDEX: Sponsorship
@@ -69,12 +69,12 @@ To participate in general discussion about using *fj*, please join the [[https:/
 #+INCLUDE: "./sponsorship.org"
 
 
-* About fj
-#+CINDEX: About fj
+* About gah
+#+CINDEX: About gah
 
-[[https://github.com/kickingvegas/now-playing][fj]] was conceived and crafted by Charles Choi in San Francisco, California.
+[[https://github.com/kickingvegas/now-playing][gah]] was conceived and crafted by Charles Choi in San Francisco, California.
 
-Thank you for using *fj*.
+Thank you for using *gah*.
 
 Always choose love.
 

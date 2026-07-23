@@ -17,20 +17,20 @@
 SRC_DIR=.
 
 .PHONY: tests
-tests: fj-tests
+tests: gah-tests
 
-.PHONY: fj-tests
-fj-tests:
-	$(MAKE) -C $(SRC_DIR) -f Makefile-fj.make tests
+.PHONY: gah-tests
+gah-tests:
+	$(MAKE) -C $(SRC_DIR) -f Makefile-gah.make tests
 
 .PHONY: package-lint
 package-lint:
-	$(MAKE) -C $(SRC_DIR) -f Makefile-fj.make $@
+	$(MAKE) -C $(SRC_DIR) -f Makefile-gah.make $@
 
 .PHONY: regression
 regression:
-	$(MAKE) -C $(SRC_DIR) -f Makefile-fj.make $@
+	$(MAKE) -C $(SRC_DIR) -f Makefile-gah.make $@
 
 .PHONY: clean
 clean:
-	$(MAKE) -C $(SRC_DIR) -f Makefile-fj.make $@
+	$(MAKE) -C $(SRC_DIR) -f Makefile-gah.make $@

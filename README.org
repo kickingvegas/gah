@@ -1,13 +1,13 @@
-* fj - A Modest GitHub Issues Browser for Emacs
+* gah - A Modest GitHub Issues Browser for Emacs
 
 THIS IS WIP.
 
-[[file:docs/images/fj-screenshot.png]]      
+[[file:docs/images/gah-screenshot.png]]      
 
 
-*fj* is an Elisp package that enables the browsing of GitHub issues via the command line utility [[https://github.com/cli/cli][gh]].
+*gah* is an Elisp package that enables the browsing of GitHub issues via the command line utility [[https://github.com/cli/cli][gh]].
 
-*fj* is limited in feature set by design: it is not intended to be a comprehensive wrapper around ~gh~.
+*gah* is limited in feature set by design: it is not intended to be a comprehensive wrapper around ~gh~.
 
 
 * Features
@@ -21,7 +21,7 @@ THIS IS WIP.
   - Create a new issue.
   - Open a Transient menu for easy access to the above commands.
 
-    [[file:docs/images/fj-transient.png]]
+    [[file:docs/images/gah-transient.png]]
     
 - Create an issue from an Org heading.
   
@@ -39,45 +39,45 @@ Both ~gh~ and ~pandoc~ must be installed and accessible from Emacs.
   
 * Install
 
-1. Ensure ~fj.el~ is in the ~load-path~ of your local Emacs configuration.
-2. Customize the variable ~fj-username~ to your GitHub user name. This *must* be configured.
+1. Ensure ~gah.el~ is in the ~load-path~ of your local Emacs configuration.
+2. Customize the variable ~gah-username~ to your GitHub user name. This *must* be configured.
 
 * Usage
 
-~fj~ can be invoked using ~execute-extended-command~  ~M-x~:
+~gah~ can be invoked using ~execute-extended-command~  ~M-x~:
 
 #+begin_src shell
-  M-x fj
+  M-x gah
 #+end_src
 
 You will be prompted to enter a repository name. Note that completion is available with the list of repositories in your GitHub account.
 
-The issues for that repository will be listed in a new Emacs buffer named ~*fj: <repo name>*~. The following key bindings are available when the point is on an issue:
+The issues for that repository will be listed in a new Emacs buffer named ~*gah: <repo name>*~. The following key bindings are available when the point is on an issue:
 
-- C-o :: Open Transient menu for *fj* (~fj-issues-tmenu~).
-- ~c~ :: Copy the issue in Org format (~fj-copy-issue~).
-- ~RET~ :: Open the issue in another window, moving point to it (~fj-switch-to-issue~).
+- C-o :: Open Transient menu for *gah* (~gah-issues-tmenu~).
+- ~c~ :: Copy the issue in Org format (~gah-copy-issue~).
+- ~RET~ :: Open the issue in another window, moving point to it (~gah-switch-to-issue~).
 - q :: Quit, keeping buffer. (~quit-window~)
 - Q :: Quit, killing buffer. (~View-kill-and-leave~)
-- n, j :: Move point to next issue and open it in a new window (~fj-next-line~).
-- p, k :: Move point to previous issue and open it in a new window (~fj-previous-line~).
-- K :: Kill all opened buffers associated with this repository (~fj-kill-all-repo-buffers~).
-- N :: Create a new issue (~fj-request-issue-create~)
-- b :: Open issue in web browser. (~fj-browse-url~)
+- n, j :: Move point to next issue and open it in a new window (~gah-next-line~).
+- p, k :: Move point to previous issue and open it in a new window (~gah-previous-line~).
+- K :: Kill all opened buffers associated with this repository (~gah-kill-all-repo-buffers~).
+- N :: Create a new issue (~gah-request-issue-create~)
+- b :: Open issue in web browser. (~gah-browse-url~)
 - TAB :: Move point to next column (~vtable-next-column~).
 - <backtab> ::  Move point to previous column (~vtable-previous-column~).
-- <double-mouse-1> :: Open issue in web browser (~fj-browse-url~)
+- <double-mouse-1> :: Open issue in web browser (~gah-browse-url~)
   
 ** Create Issue
  
-*fj* provides two ways to create an issue:
+*gah* provides two ways to create an issue:
 
-1. From the issue browser, press ~N~ to run ~fj-request-issue-create~.
-2. From an Org file, using the command ~fj-create-issue~.
+1. From the issue browser, press ~N~ to run ~gah-request-issue-create~.
+2. From an Org file, using the command ~gah-create-issue~.
 
-With ~fj-create-issue~, one can compose the issue in Org syntax using an Org heading. The content within the Org heading will be converted into GitHub Flavored Markdown (via ~ox-gfm~) that is put in the ~kill-ring~ for subsequent insertion.
+With ~gah-create-issue~, one can compose the issue in Org syntax using an Org heading. The content within the Org heading will be converted into GitHub Flavored Markdown (via ~ox-gfm~) that is put in the ~kill-ring~ for subsequent insertion.
 
-Here's an example of using ~fj-create-issue~:
+Here's an example of using ~gah-create-issue~:
 
 1. Compose issue in an Org file:
 
@@ -87,7 +87,7 @@ Here's an example of using ~fj-create-issue~:
      Let me tell you about my problem with ~foo~.
    #+end_src
 
-2. With the point located anywhere within the heading subtree, run ~M-x~ ~fj-create-issue~.
+2. With the point located anywhere within the heading subtree, run ~M-x~ ~gah-create-issue~.
 
 3. You will be prompted to select a repository in the mini-buffer. Choose one.
 

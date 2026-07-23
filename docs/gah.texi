@@ -1,7 +1,7 @@
 \input texinfo    @c -*- texinfo -*-
 @c %**start of header
-@setfilename fj.info
-@settitle fj User Guide
+@setfilename gah.info
+@settitle gah User Guide
 @documentencoding UTF-8
 @documentlanguage en
 @syncodeindex pg cp
@@ -14,13 +14,13 @@ Copyright © 2026 Charles Y@. Choi
 
 @dircategory Emacs misc features
 @direntry
-* fj: (fj).             fj - A GitHub issue browser for Emacs.
+* gah: (gah).             gah - A GitHub issue browser for Emacs.
 @end direntry
 
 @finalout
 @titlepage
-@title fj User Guide
-@subtitle for version 0.1.0
+@title gah User Guide
+@subtitle for version 0.1.1-rc.1
 @author Charles Y@. Choi (@email{kickingvegas@@gmail.com})
 @page
 @vskip 0pt plus 1filll
@@ -31,16 +31,16 @@ Copyright © 2026 Charles Y@. Choi
 
 @ifnottex
 @node Top
-@top fj User Guide
+@top gah User Guide
 
-Version: 0.1.0
+Version: 0.1.1-rc.1
 
 Copyright © 2026 @w{Charles Y. Choi}
 
-@strong{fj} is TBD@.
+@strong{gah} is TBD@.
 
 
-If you enjoy using @strong{fj}, please buy me a coffee to help support its development and maintenance.
+If you enjoy using @strong{gah}, please buy me a coffee to help support its development and maintenance.
 
 @image{images/default-yellow,,,,png}
 
@@ -54,7 +54,7 @@ If you enjoy using @strong{fj}, please buy me a coffee to help support its devel
 * Commands::
 * Feedback & Discussion::
 * Sponsorship::
-* About fj::
+* About gah::
 * Acknowledgments::
 * Main Index::
 * Variable Index::
@@ -85,30 +85,30 @@ TBD
 @chapter Feedback & Discussion
 
 @cindex Feedback
-Please report any feedback about @strong{fj} to the @uref{https://github.com/kickingvegas/now-playing/issues, issue tracker on GitHub}.
+Please report any feedback about @strong{gah} to the @uref{https://github.com/kickingvegas/now-playing/issues, issue tracker on GitHub}.
 
 @cindex Discussion
-To participate in general discussion about using @strong{fj}, please join the @uref{https://github.com/kickingvegas/now-playing/discussions, discussion group}.
+To participate in general discussion about using @strong{gah}, please join the @uref{https://github.com/kickingvegas/now-playing/discussions, discussion group}.
 
 @node Sponsorship
 @chapter Sponsorship
 
 @cindex Sponsorship
 
-If you enjoy using @strong{fj}, please buy me a coffee to help support its development and maintenance.
+If you enjoy using @strong{gah}, please buy me a coffee to help support its development and maintenance.
 
 @image{images/default-yellow,,,,png}
 
 @uref{https://www.buymeacoffee.com/kickingvegas}
 
-@node About fj
-@chapter About fj
+@node About gah
+@chapter About gah
 
-@cindex About fj
+@cindex About gah
 
-@uref{https://github.com/kickingvegas/now-playing, fj} was conceived and crafted by Charles Choi in San Francisco, California.
+@uref{https://github.com/kickingvegas/now-playing, gah} was conceived and crafted by Charles Choi in San Francisco, California.
 
-Thank you for using @strong{fj}.
+Thank you for using @strong{gah}.
 
 Always choose love.
 
