@@ -16,13 +16,13 @@
 
 include Makefile--defines.make
 
-PACKAGE_NAME=now-playing
+PACKAGE_NAME=gah
 
 ELISP_INCLUDES=
 
 ELISP_PACKAGES=
 
-ELISP_TEST_INCLUDES=fj-test-utils.el
+ELISP_TEST_INCLUDES=gah-test-utils.el
 
 
 include Makefile--rules.make
