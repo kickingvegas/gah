@@ -21,7 +21,7 @@ else
 endif
 
 TIMESTAMP := $(shell /bin/date "+%Y%m%d_%H%M%S")
-PKG_NAME=fj
+PKG_NAME=gah
 ORG_FILES :=					\
 $(PKG_NAME).org					\
 sponsorship.org

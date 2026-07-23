@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-.PHONY: tests fj-tests
+.PHONY: tests gah-tests
 
 SRC_DIR=../lisp
 
 tests: now-playing-tests
 
-fj-tests:
+gah-tests:
 	$(MAKE) -C $(SRC_DIR) $@

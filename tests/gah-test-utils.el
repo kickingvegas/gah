@@ -1,4 +1,4 @@
-;;; fj-test-utils.el --- Now Playing Test Utils           -*- lexical-binding: t; -*-
+;;; gah-test-utils.el --- Now Playing Test Utils           -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026  Charles Choi
 
@@ -24,8 +24,8 @@
 
 ;;; Code:
 (require 'ert)
-(require 'fj)
+(require 'gah)
 
 
-(provide 'fj-test-utils)
-;;; fj-test-utils.el ends here
+(provide 'gah-test-utils)
+;;; gah-test-utils.el ends here

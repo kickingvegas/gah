@@ -1,4 +1,4 @@
-;;; fj.el --- GitHub issues browser                -*- lexical-binding: t; -*-
+;;; gah.el --- GitHub issues browser                -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026  Charles Choi
 
@@ -34,19 +34,19 @@
 
 ;;; Variables
 
-(defgroup fj nil
-  "Group settings for fj.
+(defgroup gah nil
+  "Group settings for gah.
 
-fj is a browser for GitHub issues."
+gah is a browser for GitHub issues."
   :group 'convenience)
 
-(defcustom fj-username nil
+(defcustom gah-username nil
   "GitHub username."
   :type '(choice (const :tag "None" nil)
                  (string :tag "String Value"))
-  :group 'fj)
+  :group 'gah)
 
-(defcustom fj-browser-fields '("number"
+(defcustom gah-browser-fields '("number"
                                "title"
                                "body"
                                "author"
@@ -75,33 +75,33 @@ The following fields must be included in this list:
 
 Supported fields can be found in the man page `gh-issue-view'."
   :type '(repeat string)
-  :group 'fj)
+  :group 'gah)
 
-(defcustom fj-request-issue-count 50
+(defcustom gah-request-issue-count 50
   "Count limit for requested issues."
   :type 'integer
-  :group 'fj)
+  :group 'gah)
 
-(defvar fj--last-repo-history nil
+(defvar gah--last-repo-history nil
   "Private variable to store last used GitHub repository name.")
 
-(defvar fj-repo-name nil
+(defvar gah-repo-name nil
   "Local repository name.")
 
-(defvar fj--repo-list nil
-  "List of repos owned by `fj-username'.")
+(defvar gah--repo-list nil
+  "List of repos owned by `gah-username'.")
 
 
 
 ;;; Functions
 
-(defun fj-read-repo (prompt)
+(defun gah-read-repo (prompt)
   "Prompt the user with PROMPT, using the last history entry as the default input."
-  (let* ((history 'fj--last-repo-history)  ; Define the history variable
+  (let* ((history 'gah--last-repo-history)  ; Define the history variable
          (last-history-entry (car (symbol-value history))) ; Get the last entry
-         (repo-list (if fj--repo-list
-                        fj--repo-list
-                      (setq fj--repo-list (fj-list-repos)))))
+         (repo-list (if gah--repo-list
+                        gah--repo-list
+                      (setq gah--repo-list (gah-list-repos)))))
     (string-trim
      (completing-read prompt
                       repo-list
@@ -111,7 +111,7 @@ Supported fields can be found in the man page `gh-issue-view'."
                       history))))
 
 
-(defun fj-md2org (buf)
+(defun gah-md2org (buf)
   "Convert BUF text format from Markdown to Org."
   (save-excursion
     (with-temp-buffer
@@ -122,7 +122,7 @@ Supported fields can be found in the man page `gh-issue-view'."
                                t)
       (buffer-string))))
 
-(defun fj-format-labels (labels)
+(defun gah-format-labels (labels)
   "Convert LABELS to a comma-separated string.
 
 LABELS is a vector of hash-tables, each hash-table corresponding
@@ -134,7 +134,7 @@ gh."
 
     (string-join temp-list ", ")))
 
-(defun fj-iso8601-to-local-org-time (timestamp)
+(defun gah-iso8601-to-local-org-time (timestamp)
   "Convert an ISO 8601 UTC TIMESTAMP to local Org timestamp."
   (let* ((time-components (parse-time-string timestamp))
          (utc-time (encode-time time-components))
@@ -143,7 +143,7 @@ gh."
 
 ;; ;; Example usage
 ;; (let ((utc-timestamp "2024-12-23T02:42:41Z"))
-;;   (message "Local time: %s" (fj-iso8601-to-local-org-time utc-timestamp)))
+;;   (message "Local time: %s" (gah-iso8601-to-local-org-time utc-timestamp)))
 
 ;; (defvar-keymap vtable-map
 ;;   "S" #'vtable-sort-by-current-column
@@ -156,7 +156,7 @@ gh."
 (keymap-set vtable-map "TAB" #'vtable-next-column)
 (keymap-set vtable-map "<backtab>" #'vtable-previous-column)
 
-(defun fj-browse-url (&optional issue)
+(defun gah-browse-url (&optional issue)
   "Open URL in ISSUE."
   (interactive)
   (let* ((issue (if (not issue)
@@ -165,10 +165,10 @@ gh."
          (url (map-elt issue "url")))
     (browse-url url)))
 
-(defun fj-format-buffer-name (issue)
+(defun gah-format-buffer-name (issue)
   "Generate buffer name from ISSUE."
 
-  (let ((repo fj-repo-name)
+  (let ((repo gah-repo-name)
         (number (map-elt issue "number"))
         (title (map-elt issue "title")))
     (format "*%s: #%d %s*"
@@ -176,34 +176,34 @@ gh."
             number
             title)))
 
-(defun fj-copy-issue (&optional issue)
+(defun gah-copy-issue (&optional issue)
   "Copy ISSUE to `kill-ring'."
   (interactive)
   (let* ((issue (if (not issue)
                     (vtable-current-object)
                   issue))
 
-         (bufname (fj-format-buffer-name issue)))
-    (kill-new (fj-render-issue-as-org
+         (bufname (gah-format-buffer-name issue)))
+    (kill-new (gah-render-issue-as-org
                issue
-               (string-trim (car fj--last-repo-history))))
+               (string-trim (car gah--last-repo-history))))
     (message "Copied %s to kill ring" bufname)))
 
 
-(defun fj-switch-to-issue ()
+(defun gah-switch-to-issue ()
   "Switch to issue."
   (interactive)
   (let* ((issue (vtable-current-object))
-         (bufname (fj-format-buffer-name issue)))
+         (bufname (gah-format-buffer-name issue)))
 
     (if (get-buffer bufname)
         (select-window (get-buffer-window (switch-to-buffer-other-window bufname)))
 
-      (fj-browse-issue issue)
+      (gah-browse-issue issue)
       (select-window (get-buffer-window (switch-to-buffer-other-window bufname))))))
 
 
-(defun fj-render-issue-as-org (issue repo)
+(defun gah-render-issue-as-org (issue repo)
   "Render ISSUE in REPO in Org format."
 
   (let* ((number (map-elt issue "number"))
@@ -217,8 +217,8 @@ gh."
          (createdAt (map-elt issue "createdAt"))
          (updatedAt (map-elt issue "updatedAt"))
          (milestone (map-elt issue "milestone"))
-         (created (fj-iso8601-to-local-org-time createdAt))
-         (updated (fj-iso8601-to-local-org-time updatedAt))
+         (created (gah-iso8601-to-local-org-time createdAt))
+         (updated (gah-iso8601-to-local-org-time updatedAt))
          (temp-list ()))
 
     (push (format "** TODO %s #%d: %s" repo number title) temp-list)
@@ -228,7 +228,7 @@ gh."
     (if milestone
         (push (format ":MILESTONE: %s" (map-elt milestone "title")) temp-list))
     (if labels
-        (push (format ":LABELS: %s" (fj-format-labels (map-elt issue "labels"))) temp-list))
+        (push (format ":LABELS: %s" (gah-format-labels (map-elt issue "labels"))) temp-list))
 
     (if assignees
         (push (format ":ASSIGNEES: %s"
@@ -245,59 +245,59 @@ gh."
     (push "" temp-list)
     (push (format "[[%s][%s #%d: %s]]" url repo number title) temp-list)
     (push "" temp-list)
-    (push (fj-md2org body) temp-list)
+    (push (gah-md2org body) temp-list)
     (push "" temp-list)
     (string-join (seq-reverse temp-list) "\n")))
 
-(defun fj-browse-issue (&optional issue)
+(defun gah-browse-issue (&optional issue)
   "Browse ISSUE."
   (interactive)
   (let* ((issue (if (not issue)
                     (vtable-current-object)
                   issue))
          (issue-window (selected-window))
-         (repo fj-repo-name)
-         (body (fj-render-issue-as-org issue repo))
-         (bufname (fj-format-buffer-name issue))
+         (repo gah-repo-name)
+         (body (gah-render-issue-as-org issue repo))
+         (bufname (gah-format-buffer-name issue))
          (buf (get-buffer-create bufname)))
 
     (switch-to-buffer-other-window buf)
 
     (when (= (buffer-size) 0)
       (org-mode)
-      (setq-local fj-repo-name repo)
+      (setq-local gah-repo-name repo)
       (insert body)
       (goto-char (point-min))
       (read-only-mode))
 
     (select-window issue-window)))
 
-(defface fj-issues-face
+(defface gah-issues-face
   '((t (:inherit variable-pitch :extend t :height 0.9)))
   "Issues face.")
 
-(defun fj-next-line ()
+(defun gah-next-line ()
   "Next line."
   (interactive)
   (forward-line 1)
-  (fj-browse-issue (vtable-current-object)))
+  (gah-browse-issue (vtable-current-object)))
 
-(defun fj-previous-line ()
+(defun gah-previous-line ()
   "Previous line."
   (interactive)
   (forward-line -1)
-  (fj-browse-issue (vtable-current-object)))
+  (gah-browse-issue (vtable-current-object)))
 
-(defun fj-request-issues (repo)
+(defun gah-request-issues (repo)
   "Request issues for REPO."
-  (let* ((fields fj-browser-fields)
+  (let* ((fields gah-browser-fields)
          (cmd-list (list "gh"
                          "--repo"
                          (format "'%s'" repo)
                          "issue"
                          "list"
                          "--limit"
-                         (number-to-string fj-request-issue-count)
+                         (number-to-string gah-request-issue-count)
                          "--json"
                          (string-join fields ","))))
 
@@ -305,10 +305,10 @@ gh."
                         (string-join cmd-list " "))
                        :null-object nil)))
 
-(defun fj-refresh-issues ()
+(defun gah-refresh-issues ()
   "Refresh issues."
-  (let* ((repo fj-repo-name)
-         (issues (fj-request-issues repo))
+  (let* ((repo gah-repo-name)
+         (issues (gah-request-issues repo))
          (count (length issues)))
     ;; !!! vtable has a bug debbugs #69454 where an empty table is not handled
     ;; !!! correctly due to a bug in column width handling.
@@ -317,10 +317,10 @@ gh."
       (message "Refreshed %s issues (%d)" repo count)
       (seq-into issues 'list))))
 
-(defun fj-kill-all-repo-buffers ()
+(defun gah-kill-all-repo-buffers ()
   "Kill current repo buffers."
   (interactive)
-  (let* ((repo fj-repo-name)
+  (let* ((repo gah-repo-name)
          (pat (format "*%s" repo))
          (blist (buffer-list))
          (repo-buffers (seq-filter
@@ -334,24 +334,24 @@ gh."
     (message "Killed all %s buffers" repo)))
 
 
-(defun fj-issues ()
+(defun gah-issues ()
   "Put current issues for a GitHub repository in a vtable.
 
 The command prompts the user for a GitHub repository, which if it
 exists will then retrieve the current list of issues for it via gh."
   (interactive)
 
-  (if (and fj-username
-           (stringp fj-username)
-           (not (string-equal fj-username "")))
+  (if (and gah-username
+           (stringp gah-username)
+           (not (string-equal gah-username "")))
 
-      (let* ((repo (fj-read-repo "Repo: "))
-             (repo-buffer-name (format "*fj: %s*" repo)))
+      (let* ((repo (gah-read-repo "Repo: "))
+             (repo-buffer-name (format "*gah: %s*" repo)))
 
         (get-buffer-create repo-buffer-name)
         (switch-to-buffer (set-buffer repo-buffer-name))
         (toggle-truncate-lines t)
-        (setq-local fj-repo-name repo)
+        (setq-local gah-repo-name repo)
 
         (read-only-mode)
         (let ((inhibit-read-only t))
@@ -368,12 +368,12 @@ exists will then retrieve the current list of issues for it via gh."
                       (:name "Updated")
                       (:name "Created"))
 
-           :face 'fj-issues-face
+           :face 'gah-issues-face
 
-           :actions '("c" fj-copy-issue
-                      "<double-mouse-1>" fj-browse-url)
+           :actions '("c" gah-copy-issue
+                      "<double-mouse-1>" gah-browse-url)
 
-           :objects-function #'fj-refresh-issues
+           :objects-function #'gah-refresh-issues
 
            :getter (lambda (issue column table)
                      (pcase (vtable-column table column)
@@ -384,32 +384,32 @@ exists will then retrieve the current list of issues for it via gh."
                                      (mapcar (lambda (x) (map-elt x "name"))
                                              (map-elt issue "assignees"))
                                      ", "))
-                       ("Labels" (fj-format-labels (map-elt issue "labels")))
+                       ("Labels" (gah-format-labels (map-elt issue "labels")))
                        ("Milestone" (let ((milestone (map-elt issue "milestone")))
                                       (if milestone
                                           (map-elt milestone "title")
                                         "")))
-                       ("Created" (fj-iso8601-to-local-org-time (map-elt issue "createdAt")))
-                       ("Updated" (fj-iso8601-to-local-org-time (map-elt issue "updatedAt")))))
+                       ("Created" (gah-iso8601-to-local-org-time (map-elt issue "createdAt")))
+                       ("Updated" (gah-iso8601-to-local-org-time (map-elt issue "updatedAt")))))
            :keymap (define-keymap
-                     "RET" #'fj-switch-to-issue
+                     "RET" #'gah-switch-to-issue
                      "q" #'quit-window
-                     "b" #'fj-browse-url
+                     "b" #'gah-browse-url
                      "Q" #'View-kill-and-leave
-                     "n" #'fj-next-line
-                     "p" #'fj-previous-line
-                     "j" #'fj-next-line
+                     "n" #'gah-next-line
+                     "p" #'gah-previous-line
+                     "j" #'gah-next-line
                      "t" #'toggle-truncate-lines
-                     "k" #'fj-previous-line
-                     "C-o" #'fj-issues-tmenu
-                     "N" #'fj-request-issue-create
-                     "K" #'fj-kill-all-repo-buffers))))
-    (error "The variable ‘fj-username’ must be set to the GitHub user name")))
+                     "k" #'gah-previous-line
+                     "C-o" #'gah-issues-tmenu
+                     "N" #'gah-request-issue-create
+                     "K" #'gah-kill-all-repo-buffers))))
+    (error "The variable ‘gah-username’ must be set to the GitHub user name")))
 
-(defalias 'fj #'fj-issues
-  "Alias for `fj-issues'.")
+(defalias 'gah #'gah-issues
+  "Alias for `gah-issues'.")
 
-(defun fj-request-list-repos ()
+(defun gah-request-list-repos ()
   "List repos owned by user."
 
   (let ((cmd-list '("gh"
@@ -423,16 +423,16 @@ exists will then retrieve the current list of issues for it via gh."
      (shell-command-to-string (string-join cmd-list " "))
      :null-object nil)))
 
-(defun fj-list-repos ()
+(defun gah-list-repos ()
   "List repos."
-  (let* ((response (fj-request-list-repos))
+  (let* ((response (gah-request-list-repos))
          (names (seq-map
                  (lambda (e)
-                   (file-name-concat fj-username (map-elt e "name")))
+                   (file-name-concat gah-username (map-elt e "name")))
                  response)))
     names))
 
-(defun fj-request-issue-create (&optional repo)
+(defun gah-request-issue-create (&optional repo)
   "Request issue create with REPO."
   (interactive)
 
@@ -441,7 +441,7 @@ exists will then retrieve the current list of issues for it via gh."
 
   (let* ((repo (if repo
                    repo
-                 (fj-read-repo "Repo: ")))
+                 (gah-read-repo "Repo: ")))
 
          (cmdlist (list "gh"
                         "issue"
@@ -461,14 +461,14 @@ exists will then retrieve the current list of issues for it via gh."
           (insert cmd)
           (eshell-send-input))))))
 
-(defun fj-create-issue ()
+(defun gah-create-issue ()
   "Create GH issue."
   (interactive)
 
-  (if (and (derived-mode-p 'org-mode) fj-username)
+  (if (and (derived-mode-p 'org-mode) gah-username)
       (save-excursion
         (outline-back-to-heading)
-        (let* ((repo (fj-read-repo "Repo: "))
+        (let* ((repo (gah-read-repo "Repo: "))
                (element (org-element-at-point))
                (headline (org-element-property :raw-value element))
                (contents-begin (org-element-property :contents-begin element))
@@ -481,30 +481,30 @@ exists will then retrieve the current list of issues for it via gh."
                (payload (string-join (list headline clipping) "\n")))
 
           (kill-new payload)
-          (fj-request-issue-create repo)))
+          (gah-request-issue-create repo)))
 
     (cond
      ((not (derived-mode-p 'org-mode))
       (message "This command only supported in an `org-mode' buffer"))
 
-     ((not fj-username)
-      (error "The variable ‘fj-username’ must be set to the GitHub user name"))
+     ((not gah-username)
+      (error "The variable ‘gah-username’ must be set to the GitHub user name"))
      (t
       (error "undefined condition")))))
 
 
 ;;; Transients
 
-(transient-define-prefix fj-issues-tmenu ()
+(transient-define-prefix gah-issues-tmenu ()
   "GitHub issues client menu."
   ["GitHub Issues"
-   :description (lambda () (format "GitHub Issues: %s" fj-repo-name))
+   :description (lambda () (format "GitHub Issues: %s" gah-repo-name))
    ["Actions"
     :pad-keys t
-    ("RET" "Browse" fj-browse-issue)
-    ("c" "Copy as Org" fj-copy-issue)
-    ("K" "Close all opened issues" fj-kill-all-repo-buffers)
-    ("N" "New Issue…" fj-request-issue-create)]
+    ("RET" "Browse" gah-browse-issue)
+    ("c" "Copy as Org" gah-copy-issue)
+    ("K" "Close all opened issues" gah-kill-all-repo-buffers)
+    ("N" "New Issue…" gah-request-issue-create)]
 
    ["Navigation"
     ("p" "↑" previous-line :transient t)
@@ -512,12 +512,12 @@ exists will then retrieve the current list of issues for it via gh."
 
    ["View"
     ("g" "Refresh" vtable-revert-command)
-    ("b" "Browse URL" fj-browse-url)
+    ("b" "Browse URL" gah-browse-url)
     ("t" "Toggle Truncate Lines" toggle-truncate-lines)]]
 
   [:class transient-row
-   ("f" "Change Repo…" fj)
+   ("f" "Change Repo…" gah)
    ("Q" "Quit" View-kill-and-leave)])
 
-(provide 'fj)
-;;; fj.el ends here
+(provide 'gah)
+;;; gah.el ends here

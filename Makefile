@@ -43,7 +43,7 @@
 #   $ make new-sprint
 
 LISP_DIR=./lisp
-PACKAGE_NAME=fj
+PACKAGE_NAME=gah
 MAIN_EL=$(realpath $(LISP_DIR)/$(PACKAGE_NAME).el)
 
 TIMESTAMP := $(shell /bin/date "+%Y%m%d_%H%M%S")
