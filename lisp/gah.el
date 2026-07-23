@@ -4,7 +4,7 @@
 
 ;; Author: Charles Choi <kickingvegas@gmail.com>
 ;; Keywords: tools
-;; Version: 0.1.1
+;; Version: 0.1.2-rc.1
 ;; Package-Requires: ((emacs "30.1") (transient "0.9.0") (ox-gfm "1.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -145,16 +145,6 @@ gh."
 ;; (let ((utc-timestamp "2024-12-23T02:42:41Z"))
 ;;   (message "Local time: %s" (gah-iso8601-to-local-org-time utc-timestamp)))
 
-;; (defvar-keymap vtable-map
-;;   "S" #'vtable-sort-by-current-column
-;;   "{" #'vtable-narrow-current-column
-;;   "}" #'vtable-widen-current-column
-;;   "g" #'vtable-revert-command
-;;   "M-<left>" #'vtable-previous-column
-;;   "M-<right>" #'vtable-next-column)
-
-(keymap-set vtable-map "TAB" #'vtable-next-column)
-(keymap-set vtable-map "<backtab>" #'vtable-previous-column)
 
 (defun gah-browse-url (&optional issue)
   "Open URL in ISSUE."
@@ -403,7 +393,9 @@ exists will then retrieve the current list of issues for it via gh."
                      "k" #'gah-previous-line
                      "C-o" #'gah-issues-tmenu
                      "N" #'gah-request-issue-create
-                     "K" #'gah-kill-all-repo-buffers))))
+                     "K" #'gah-kill-all-repo-buffers
+                     "TAB" #'vtable-next-column
+                     "<backtab>" #'vtable-previous-column))))
     (error "The variable ‘gah-username’ must be set to the GitHub user name")))
 
 (defalias 'gah #'gah-issues
