@@ -4,7 +4,7 @@
 
 ;; Author: Charles Choi <kickingvegas@gmail.com>
 ;; Keywords: tools
-;; Version: 0.1.2-rc.1-rc.2
+;; Version: 0.1.2-rc.1-rc.3
 ;; Package-Requires: ((emacs "30.1") (transient "0.9.0") (ox-gfm "1.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
